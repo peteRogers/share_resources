@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shared Resources</title>
+  <style>
+    :root { --bg:#fafafa; --fg:#1a1a1a; --muted:#666; --card:#fff; --border:#e2e2e2; --link:#0b5fff; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#141414; --fg:#eee; --muted:#999; --card:#1e1e1e; --border:#333; --link:#7aa7ff; }
+    }
+    body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, sans-serif; }
+    main { max-width:720px; margin:0 auto; padding:48px 16px; }
+    h1 { margin:0 0 4px; }
+    h2 { margin-top:40px; font-size:1.1rem; }
+    p.lead { color:var(--muted); margin:0 0 24px; }
+    ul { list-style:none; padding:0; display:grid; gap:10px; }
+    a.card { display:block; padding:14px 16px; background:var(--card); border:1px solid var(--border);
+             border-radius:10px; color:var(--fg); text-decoration:none; }
+    a.card:hover { border-color:var(--link); }
+    a.card span { display:block; color:var(--muted); font-size:.9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Shared Resources</h1>
+  <p class="lead">Links to my GitHub Pages sites and shared files.</p>
+
+  <h2>Pages</h2>
+  <!-- Add a new <li> for each repo you turn GitHub Pages on for -->
+  <ul>
+    <li><a class="card" href="https://peterogers.github.io/">peteRogers.github.io<span>Main site</span></a></li>
+    <li><a class="card" href="https://peterogers.github.io/eyesMove/">eyesMove<span>peterogers.github.io/eyesMove</span></a></li>
+    <li><a class="card" href="https://peterogers.github.io/OLED_Displays/">OLED_Displays<span>peterogers.github.io/OLED_Displays</span></a></li>
+  </ul>
+
+  <h2>Files</h2>
+  <ul>
+    <li><a class="card" href="https://github.com/peteRogers/share_resources/tree/main/share_resources">share_resources/<span>Shared files folder</span></a></li>
+  </ul>
+</main>
+</body>
+</html>
