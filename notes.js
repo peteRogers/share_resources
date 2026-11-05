@@ -22,6 +22,11 @@
 // Note names are a letter from A to G, then # or b for sharp or flat if you want
 // one, then an octave number if you want one. "A", "a", "Bb" and "F#3" all work.
 //
+// A piano goes from "A0" up to "C8", and middle C is "C4". Notes.PIANO lists all
+// 88 keys in order, so a number can pick a key:
+//
+//   notes.play(Notes.PIANO[39]);   // middle C
+//
 // Browsers stay silent until the person clicks or presses a key on the page, so
 // start the first note from something like mousePressed().
 
@@ -38,6 +43,13 @@ class Notes {
 
   // How long notes take to fade in and out, in seconds. Without this they click.
   static FADE = 0.02;
+
+  // All 88 piano keys from lowest to highest: "A0", "A#0", "B0", "C1" ... "C8"
+  static PIANO = Array.from({ length: 88 }, (_, i) => {
+    let names = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
+    let octave = Math.floor((i + 9) / 12); // each new octave starts on C
+    return names[i % 12] + octave;
+  });
 
   // Turn a note name into its frequency in Hz: "A" gives 440
   frequency(note) {
