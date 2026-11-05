@@ -80,7 +80,7 @@ class Rope {
   // Drag nearby points along with something moving through the rope, like the
   // mouse or a fingertip. (x, y) is where it is, (vx, vy) is how far it moved
   // this frame. Points closer to it get pushed harder.
-  push(x, y, vx, vy, radius = 100, strength = 0.5) {
+  force(x, y, vx, vy, radius = 100, strength = 0.5) {
     for (let p of this.points) {
       if (p.pinned) continue;
       let d = dist(p.x, p.y, x, y);
