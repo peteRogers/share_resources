@@ -13,6 +13,12 @@
 //   let sound = notes.hold("E");
 //   sound.stop();
 //
+// To change the pitch of a held note, give bend() a value and the highest that
+// value can be. 0 is the note itself and the highest value is one octave up:
+//
+//   sound.bend(arduino.value, 800);       // 0 to 800 slides up one octave
+//   sound.bend(arduino.value, 800, 24);   // the same, but up 24 semitones (2 octaves)
+//
 // Note names are a letter from A to G, then # or b for sharp or flat if you want
 // one, then an octave number if you want one. "A", "a", "Bb" and "F#3" all work.
 //
@@ -83,6 +89,13 @@ class Notes {
     return {
       note: note,
       frequency: frequency,
+      // Slide the pitch up from the note. value goes from 0 to max, and max is
+      // that many semitones above the note.
+      bend(value, max, semitones = 12) {
+        let amount = Math.min(Math.max(value / max, 0), 1);
+        let bent = frequency * 2 ** ((amount * semitones) / 12);
+        oscillator.frequency.setTargetAtTime(bent, audio.currentTime, Notes.FADE);
+      },
       stop(seconds = 0) {
         // Fade out, then end the oscillator
         let end = audio.currentTime + seconds;
