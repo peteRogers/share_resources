@@ -19,6 +19,11 @@
 //   sound.bend(arduino.value, 800);       // 0 to 800 slides up one octave
 //   sound.bend(arduino.value, 800, 24);   // the same, but up 24 semitones (2 octaves)
 //
+// To change the volume of a held note, give amp() a value from 0 (silent) to 1 (full):
+//
+//   sound.amp(0.5);
+//   sound.amp(arduino.value / 800);       // fade with a sensor that goes from 0 to 800
+//
 // Note names are a letter from A to G, then # or b for sharp or flat if you want
 // one, then an octave number if you want one. "A", "a", "Bb" and "F#3" all work.
 //
@@ -107,6 +112,11 @@ class Notes {
         let amount = Math.min(Math.max(value / max, 0), 1);
         let bent = frequency * 2 ** ((amount * semitones) / 12);
         oscillator.frequency.setTargetAtTime(bent, audio.currentTime, Notes.FADE);
+      },
+      // Set how loud the note is, from 0 (silent) to 1 (full volume)
+      amp(value) {
+        let amount = Math.min(Math.max(value, 0), 1);
+        gain.gain.setTargetAtTime(amount, audio.currentTime, Notes.FADE);
       },
       stop(seconds = 0) {
         // Fade out, then end the oscillator
