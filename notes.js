@@ -45,7 +45,7 @@
 class Notes {
   constructor(options = {}) {
     this.wave = options.wave ?? "piano"; // one of the names in Notes.INSTRUMENTS
-    this.volume = options.volume ?? 0.3; // 0 to 1
+    this.volume = options.volume ?? 0.25; // 0 to 1
     this.octave = options.octave ?? 4; // used when a note doesn't give an octave
     this.reverb = options.reverb ?? 0.2; // 0 (none) to 1 (lots of echo)
     this.audio = null; // made when the first note plays
@@ -64,9 +64,9 @@ class Notes {
   //   brightness - how many overtones get through at the start. 0 lets all through.
   //   chorus     - cents two copies of the wave are pulled apart, for a fuller sound
   static INSTRUMENTS = {
-    piano: { harmonics: [1, 0.5, 0.3, 0.15, 0.1, 0.06, 0.04, 0.02], attack: 0.004, decay: 1.5, sustain: 0.2, release: 0.35, brightness: 8, chorus: 3 },
-    soft: { harmonics: [1, 0.2, 0.08, 0.03], attack: 0.06, decay: 0.4, sustain: 0.8, release: 0.4, brightness: 4, chorus: 6 },
-    pluck: { harmonics: [1, 0.6, 0.4, 0.3, 0.2, 0.15, 0.1, 0.07, 0.05], attack: 0.002, decay: 0.5, sustain: 0, release: 0.15, brightness: 12, chorus: 0 },
+    piano: { harmonics: [1, 0.35, 0.18, 0.08, 0.05, 0.03, 0.02, 0.01], attack: 0.012, decay: 1.5, sustain: 0.2, release: 0.45, brightness: 5, chorus: 3 },
+    soft: { harmonics: [1, 0.15, 0.05, 0.02], attack: 0.08, decay: 0.4, sustain: 0.8, release: 0.5, brightness: 3, chorus: 6 },
+    pluck: { harmonics: [1, 0.45, 0.3, 0.2, 0.12, 0.08, 0.05, 0.03, 0.02], attack: 0.005, decay: 0.5, sustain: 0, release: 0.2, brightness: 8, chorus: 0 },
     organ: { harmonics: [1, 0.7, 0, 0.4, 0, 0.25, 0, 0.2], attack: 0.015, decay: 0.1, sustain: 0.9, release: 0.1, brightness: 0, chorus: 2 },
     sine: { type: "sine", attack: 0.01, decay: 0, sustain: 1, release: 0.08, brightness: 0, chorus: 0 },
     triangle: { type: "triangle", attack: 0.01, decay: 0, sustain: 1, release: 0.08, brightness: 0, chorus: 0 },
@@ -173,8 +173,8 @@ class Notes {
     // Start bright and get mellower. Keep below what the speakers can play.
     let highest = audio.sampleRate * 0.45;
     if (brightness > 0) {
-      let bright = Math.min(frequency * brightness + 1000, highest);
-      let mellow = Math.min(frequency * brightness * 0.4 + 600, highest);
+      let bright = Math.min(frequency * brightness + 700, highest);
+      let mellow = Math.min(frequency * brightness * 0.35 + 450, highest);
       filter.frequency.setValueAtTime(bright, begin);
       filter.frequency.setTargetAtTime(mellow, begin + attack, (decay || 0.3) / 3);
     } else {
